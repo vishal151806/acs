@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="7ca6466e-f88c-4259-a71f-fc80835a583c" >
+		<http:listener-connection host="${http.host}" port="${http.port}" />
+	</http:listener-config>
+	<configuration-properties doc:name="Configuration properties" doc:id="54ea0d36-9e96-4027-825c-8dbb575fed44" file="app-${mule.env}.yaml" />
+	<flow name="vp-test-apiFlow" doc:id="8e771694-c120-4342-a15f-3047b362e98c" >
+		<http:listener doc:name="Listener" doc:id="5e68a5d0-2452-4b14-bad7-7c88a70ef01b" config-ref="HTTP_Listener_config" path="/rtf"/>
+		<logger level="INFO" doc:name="Logger" doc:id="42dde729-ccb5-46ca-bc49-5986a59c6599" message="Inside API"/>
+		<set-payload value="#[p('message.text')]" doc:name="Set Payload" doc:id="6d23a005-89ed-4f54-8f0e-a8fda121daad" />
+	</flow>
+</mule>
